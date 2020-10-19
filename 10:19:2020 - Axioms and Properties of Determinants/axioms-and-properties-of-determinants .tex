@@ -1,0 +1,115 @@
+\documentclass[12pt]{amsart}
+
+\addtolength{\hoffset}{-2.25cm}
+\addtolength{\textwidth}{4.5cm}
+\addtolength{\voffset}{-2.5cm}
+\addtolength{\textheight}{5cm}
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{15pt}
+
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xfrac}
+\usepackage[colorlinks = true, linkcolor = black, citecolor = black, final]{hyperref}
+
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{ marvosym }
+\usepackage{wasysym}
+\newcommand{\ds}{\displaystyle}
+
+
+\pagestyle{myheadings}
+
+\setlength{\parindent}{0in}
+
+\pagestyle{empty}
+
+\begin{document}
+
+\thispagestyle{empty}
+
+{\scshape 21-241} \hfill {\scshape \Large Notes} \hfill {\scshape Fall 2020}
+\medskip
+\hrule
+\bigskip
+
+\section*{Axioms and Properties of Determinants (10/19/2020)}
+
+Recall that a determinant is a number we calculate about a square ($n \times n$). Geometrically, we can think of the determinant as a \textit{ratio of unsigned $n$-dimensional volume}, that the matrix takes a region of $R^n$ and a) rescales it and b) reorients it, and the determinant is a measurement of a and b. The determinant formula can be thought of as $\frac{\text{signed n-dimensional volume}}{\text{original n-dimensional unsigned volume}}$.\\
+This lecture aims to use the axioms below to derive many properties of the determinant. From these properties, we aim to end with a generalized formula for the determinant of a matrix.\\
+\\
+\textbf{Axioms for the Determinant:}\\
+Using three simple rules, we have necessary and sufficient conditions to understand the determinant:
+\begin{itemize}
+	\item Axiom 1: $\det I = 1$
+	\item Axiom 2: Row swaps switch the sign of the determinant (reverse orientation)
+	\item Axiom 3: The determinant is linear in each row of $A$.
+\end{itemize}
+These rules naturally follow:
+\begin{itemize}
+	\item $\det \begin{pmatrix}\dots\\x\vec{a}^T\\\dots\end{pmatrix} = x \cdot \det \begin{pmatrix}\dots\\\vec{a}^T\\\dots\end{pmatrix}$\\
+	\item $\det \begin{pmatrix}\dots\\\vec{a}^T + \vec{b}^T\\\dots\end{pmatrix} = \begin{pmatrix}\dots\\\vec{a}^T\\\dots\end{pmatrix} + \begin{pmatrix}\dots\\\vec{b}^T\\\dots\end{pmatrix}$
+\end{itemize}
+However, these rules apply to rows (vectors), but do \underline{not} apply to columns. For instance:
+\[\det I = 1 \quad \quad \det \begin{pmatrix}1&0\\0&0\end{pmatrix}+\det \begin{pmatrix}0&0\\0&1\end{pmatrix} = 0 + 0 = 0\]
+\\
+\textbf{Determinants of Diagonal Matrices:}\\
+Considering diagonal matrices, using the axioms we can find a few quick formulas to calculate their determinant. It follows that for a diagonal $n \times n$ matrix $D$:
+\[\det \begin{pmatrix}d_1 & & &  &\\ & d_2  & &\\ & & \ddots \\ & & & d_n\end{pmatrix} = d_1 \cdot d_2 \dots \cdot d_n\]
+Note that this can also be thought of goemetrically. If we take $De_i$, we find:
+\[\begin{pmatrix}d_1 & & &  &\\ & d_2  & &\\ & & \ddots \\ & & & d_n\end{pmatrix}\vec{e}_i = d_i\vec{e_i}\]
+If we think about a unit cube of volume 1, we see that each of the standard basis vectors of the unit cube ($\vec{e}_1, \vec{e}_2, \dots, \vec{e}_n$) each get individually stretched by the values of $D$. This creates a rectangular prism of side lengths $d_1, d_2, \dots d_n$. As a result, we can conclude that the signed area of our new shape is simply $d_1 \cdot d_2 \cdot \dots \cdot d_n$.
+\newpage
+\textbf{Derived Algebraic Properties of Determinants:}\\
+Using the axioms, we can conclude a great amount about the determinant for different types of matrices or different modifications of matrices. These properties provide a good start:
+\begin{itemize}
+	\item If $A$ has two equal rows, then $\det A = 0$. We can prove this using axiom 2. Consider matrix $A$ with same rows $\vec{a_1}^T = \vec{a_2}^T$. As such, we can conclude:
+	\[\det \begin{pmatrix}\dots\\\vec{a_1}^T\\\dots\\\vec{a_2}^T\\\dots\end{pmatrix} = - \det \begin{pmatrix}\dots\\\vec{a_2}^T\\\dots\\\vec{a_1}^T\\\dots\end{pmatrix} \implies \det A = - \det A\]
+		It follows that the determinant of matrix must be the equal to the negative determinant of the matrix. The only number that is equal to its negative is 0, and thus the determinant of a matrix with equal rows must be zero.
+	\item Adding a scalar factor times a row to another row leaves a matrix determinant unchanged. Consider matrix $A$ with rows $\vec{a}^T$ and $\vec{b}^T$. Remember from last lecture that if matrix $Y$ equals matrix $X$ except one row is multiplied by a factor $\alpha$, then $\det X = (\alpha) \det Y$. From here, we can conclude:
+		\[\det \begin{pmatrix}\dots\\\vec{a}^T\\\dots\\\vec{b}^T + (\alpha) \vec{a}^T\\\dots\end{pmatrix} = 
+		  \det \begin{pmatrix}\dots\\\vec{a}^T\\\dots\\\vec{b}^T\\\dots\end{pmatrix} +
+		  \det \begin{pmatrix}\dots\\\vec{a}^T\\\dots\\(\alpha) \vec{a}^T\\\dots\end{pmatrix} = 
+		  \det A + (\alpha)0 = \det A\]
+		Thus, it follows that adding a scalar factor times a row to another row leaves a matrix determinant unchanged
+	\item Using the properties we have already derived, we can  show that is a matrix has any zero rows, then the matrix has a determinant of zero. Consider matrix $A$ with rows $\vec{a}^T$ and $\vec{0}^T$. If we add $(1)\vec{a}^T$ to the row containing $\vec{0}^T$, then the determinant stays the same. However, now we have a matrix with two rows that are equal, and as such the determinant of the matrix must be zero! The algebra for this is shown below:
+	\[\det \begin{pmatrix}\dots\\\vec{a}^T\\\dots\\\vec{0}^T\\\dots\end{pmatrix} =
+	  \det \begin{pmatrix}\dots\\\vec{a}^T\\\dots\\\vec{0}^T + (1)\vec{a}^T\\\dots\end{pmatrix} = 
+	  \det \begin{pmatrix}\dots\\\vec{a}^T\\\dots\\\vec{a}^T\\\dots\end{pmatrix} = 0
+	\]
+\end{itemize}
+Now, we have proven that matrices with the same row or a zero row have determinant zero, and determinant is preserved if we add a scalar times one row to another row in the matrix.\\
+\\
+\textbf{Determinants of Upper and Lower Triangular Matrices:}\\
+Thinking about upper and lower triangular matrices, we can define two cases. If the diagonal is entirely non-zero, and if the diagonal has a at least one zero.
+\begin{itemize}
+	\item Case 1: If $a_{11}, a_{22}, \dots , a_{nn}$ all nonzero for upper/lower triangular matrix $A$, then we can simply use row elimination to remove all of the upper/lower triangular elements, leaving only the diagonal. Thus, it follows that the determinant will simply be equal to the determinant of the diagonal matrix, which is the product of the diagonal elements.
+	\item Case 2: If $a_{ii} = 0$ for some $1 \leq i \leq n$, then we can again use row operations to make the $i$-th row an all-zeroes row. By our derived properties, it follows that the determinant of this matrix is simply zero.
+\end{itemize}
+In all cases, we see a simple property -- the determinant of all upper/lower triangular matrices is the product of the diagonal.
+\\
+\textbf{Determinant of Matrix Products:}\\
+We aim to show that if $A$ and $B$ are $n \times n$ matrices, then we can conclude that:
+\[\det AB = \det A \cdot \det B\]
+Thinking about this geometrically, note that the linear transformations made by $AB$ to our unit cube are the same as making the linear transformations of $B$ to the unit cube, and then making the linear transformations of $A$ to the unit cube. Thus, it follows that we scale using $B$ by factor $\det B$, and then scale using $A$ by factor $\det A$, the total scaling factor will be $\det A \cdot \det B$. There is a full-bodied proof of this property on pg. 251 of the textbook, but for now we will leave it be.\\
+
+\textbf{Determinant of Permutation Matrices:}\\
+One last property is needed to be able to find the determinant of a general $n \times n$ matrix $A$. We aim to show that if $P$ is a permutation matrix, then $\det P = x$, where $x$ is the number of row swaps to get from $P$ to $I$. First, we note that any row swap can be done in reverse. Thus, the number of row swaps from $P$ to $I$ will be equal to the number of row swaps from $I$ to $P$. Furthermore, note by the axioms that $\det I = 1$, and a row swap flips the determinant, that is it multiplies the determinant by -1. Thus, by counting the total row swaps, we see that $\det P = \det I \cdot (-1)^x = (-1)^x$.\\
+
+\textbf{A Method For Computing the Determinant:}\\
+Now, we finally have enough knowledge to be able to determine the determinant of any matrix $A$. First, we will find a $PA=LU$ decomposition for $A$. Then, the math is easy!
+\begin{align*}
+	PA &= LU\\
+	\det PA &= \det LU\\
+	\det P \cdot \det A &= \det L \cdot \det U\\
+	\det A &= \frac{\det L \cdot \det U}{\det P}
+\end{align*}
+With this system written out, we can use our properties for the determinants of permutation and upper/lower triangular matrices to show:
+ \[\det A = (-1)^x(l_{11} \cdot l_{22} \cdot \dots \cdot l_{nn})(u_{11} \cdot u_{22} \cdot \dots \cdot u_{nn})\]
+We now have a complete formula for the determinant of any $n \times n$ matrix!
+
+
+
+\end{document}
