@@ -12,7 +12,6 @@
 \usepackage{amssymb}
 \usepackage{xfrac}
 \usepackage[colorlinks = true, linkcolor = black, citecolor = black, final]{hyperref}
-
 \usepackage{graphicx}
 \usepackage{multicol}
 \usepackage{ marvosym }
@@ -37,24 +36,27 @@
 
 \section*{Geometry of Determinants (10/14/2020)}
 A determinant is a measurement of $signed$ $volume$. We will investigate this by calculating linear transformations at looking at geometric results. When thinking about a linear transformation (i.e. matrix multiplication), the basis is important for determining what is going to happen! Any linear transformation of a subspace can be generalized to a linear transformation of the bases of the subspace.\\
-\\
-\textbf{An Example: }\\Consider $A=\begin{pmatrix}a&b\\c&d\end{pmatrix}$. This matrix via multiplication (i.e. $A\vec{x}=\vec{y}$) will map vectors from $\mathbb{R}^2$ to $\mathbb{R}^2$. We can use some simple matrices to get rows and columns!
+
+\subsection*{An Example:}\hfill\\
+Consider $A=\begin{pmatrix}a&b\\c&d\end{pmatrix}$. This matrix via multiplication (i.e. $A\vec{x}=\vec{y}$) will map vectors from $\mathbb{R}^2$ to $\mathbb{R}^2$. We can use some simple matrices to get rows and columns!
 \begin{itemize}
 	\item $\begin{pmatrix}a&b\\c&d\end{pmatrix}\begin{pmatrix}1\\0\end{pmatrix}=\begin{pmatrix}a\\c\end{pmatrix}$
 	\item $\begin{pmatrix}a&b\\c&d\end{pmatrix}\begin{pmatrix}0\\1\end{pmatrix}=\begin{pmatrix}b\\d\end{pmatrix}$
 	\item $\begin{pmatrix}a&b\\c&d\end{pmatrix}\begin{pmatrix}0\\1\end{pmatrix}= A(x\begin{pmatrix}1\\0\end{pmatrix} + y\begin{pmatrix}0\\1\end{pmatrix}) = x\begin{pmatrix}a\\c\end{pmatrix} + y\begin{pmatrix}b\\d\end{pmatrix}=\begin{pmatrix}ax+by\\cx+dy\end{pmatrix}$
 \end{itemize}
 The important thing to note here is that for any $(x, y)$, multiplication to $A$ is really a linear transformation of the columns of $A$. Accordingly, this is going to form a parallelogram quadrilateral of vectors with points of $(0,0)$, $(b,d)y$, $(a,c)x$, and finally $(a,c)x + (b,d)y$.\\
-\\
-\textbf{Thinking About Area: }\\
+
+\subsection*{Thinking About Area:}\hfill\\
 So, based on that values in our $2\times2$ matrix $A$, what is the area going to be? Well, he have a parallelogram with the points listed above. We can use some geometry to subscribe the parallelogram into a rectangle of sides $c+d$ and $b+a$, with the final result that the area for $\vec{x}=(1,1)$ is $ad-bc$. This formula is important!\\
 If we take any random area (think a blob around the origin), we can think of multiplication by $A$ as a transformation of the grid of the cartesian plane itself. Each and every separate point in the blob is transformed just like $(x,y)$ was above. It follows that multiplication by a $2\times2$ matrix $A$ can be generalized as this transformation of the grid. Specifically, if we consider $A\vec{x}=\vec{y}$, then the ratio of the area of our original $\vec{x}$ to the area of our final $\vec{y}$ will be:
-\[\frac{\mathrm{area}(\vec{y})}{\mathrm{area}(\vec{x})} = \frac{ad-bc}{1} = ad-bc\]\\
-\textbf{Thinking About Signed Area:}\\
+\[\frac{\mathrm{area}(\vec{y})}{\mathrm{area}(\vec{x})} = \frac{ad-bc}{1} = ad-bc\]
+\\
+\subsection*{Thinking About Signed Area:}\hfill\\
 Consider if we switch the columns of $A$, that is $A_M=\begin{pmatrix}b&a\\d&c\end{pmatrix}$. Given our $(x,y)$ to multiply, we're going to get a new but very similar parallelogram quadrilateral, with $(0,0)$, $(b,d)x$, $(a,c)y$, and finally $(b,d)x+(a,c)y$. Furthermore, if we calculate our \textbf{determinant}, we get: 
 	\[\mathrm{det}(A_M) = bd-ac = -\mathrm{det}(A_M)\]
-This means while we get almost the same shape with $A$ and $A_M$, the area of one is going to be negative and the other positive (or both zero)! This makes sense because we are talking about $signed$ area, not unsigned area. The determinant isn't just giving us the area of the parallelogram, but the orientation of this area. For instance, note that $A(x,y)=A_M(y,x)$, and not only are both shapes the exact same -- they have the same determinant!\\ \\ \\
-\textbf{Properties of Determinants:}\\
+This means while we get almost the same shape with $A$ and $A_M$, the area of one is going to be negative and the other positive (or both zero)! This makes sense because we are talking about $signed$ area, not unsigned area. The determinant isn't just giving us the area of the parallelogram, but the orientation of this area. For instance, note that $A(x,y)=A_M(y,x)$, and not only are both shapes the exact same -- they have the same determinant!\\
+
+\subsection*{Properties of Determinants:}\hfill\\
 Let's consider the matrix $A=\begin{pmatrix}1&2\\4&8\end{pmatrix}$. It follows that $\mathrm{det}(A)=(1)(8)-(4)(2)=0$. This is important! We can conjecture that for any square matrix $A$, if the columns are linearly dependent, then  $\mathrm{det}(A)=0$.\\
 Note these interesting determinant calculations:
 \begin{itemize}
@@ -68,11 +70,4 @@ As a final note, see that for $n\in\mathbb{Z}$, $n\geq2$ the formula for the det
 -(a_{12})\mathrm{det}\begin{pmatrix}a_{21}&a_{23}\\a_{31}&a_{33}\end{pmatrix}
 +(a_{13})\mathrm{det}\begin{pmatrix}a_{21}&a_{22}\\a_{31}&a_{32}\end{pmatrix}\]
 In the future, we will explore more about the determinant and its implications.
-
-
-
-
-
-
-
 \end{document}

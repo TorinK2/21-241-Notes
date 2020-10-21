@@ -1,0 +1,102 @@
+\documentclass[12pt]{amsart}
+
+\addtolength{\hoffset}{-2.25cm}
+\addtolength{\textwidth}{4.5cm}
+\addtolength{\voffset}{-2.5cm}
+\addtolength{\textheight}{5cm}
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{15pt}
+
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xfrac}
+\usepackage[colorlinks = true, linkcolor = black, citecolor = black, final]{hyperref}
+
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{ marvosym }
+\usepackage{wasysym}
+\newcommand{\ds}{\displaystyle}
+
+
+\pagestyle{myheadings}
+
+\setlength{\parindent}{0in}
+
+\pagestyle{empty}
+
+\begin{document}
+
+\thispagestyle{empty}
+
+{\scshape 21-241} \hfill {\scshape \Large Notes} \hfill {\scshape Fall 2020}
+\medskip
+\hrule
+\bigskip
+
+\section*{Determinants With Inverse and Tranpose (10/19/2020)}
+In last lecture, we derived multiple properties of determinants for matrices from the axioms. Today, we will prove a few more! Specifically, we will try to answer questions on the determinants of transpose and inverse matrices.\\ \\
+\textbf{Determinant of a Noninvertible Matrix}\\
+Consider an $n \times n$ matrix $A$. We aim to prove that if $A$ is not invertible, then $\det A = 0$. Note that if we have a noninvertible matrix $A$, then by we can produce an upper triangular matrix $U$ by row operations. Note that by our previous propositions, we can conclude that:
+\[|\det A|  = |\det U|\]
+This is because row swaps simply multiply the determinant by negative one, and adding a scalar times a row preserves the determinant. We know that the determinant of a triangular matrix is the product of the elements in the diagonal, that is the product of the pivots of $U$. We know that if all the pivots are nonzero, then matrix $A$ is invertible. As a result,  one pivot must be zero, so $\det A = 0$.\\
+\\
+\textbf{Determinants of Matrix Inverses and Transposes}\\
+Another important property is that the determinant of the inverse of an invertible matrix, that is $\det A^{-1}$ is the reciprocal of the determinant of the original matrix, that is $\det A$. This can be proved by the property $A^{-1}A=I$, as shown below:
+\begin{align*}
+	A^{-1}A &= I\\
+	\det A^{-1} \det A &= \det I\\
+	\det A^{-1} \det A &= 1\\
+	\det A^{-1} &= \frac{1}{\det A}
+\end{align*}
+Note that as the determinant of an invertible matrix is non-zero, we will never have any division by zero problems!\\
+Now, we aim to prove for $n \times n$ matrix $A$, $\det A = \det A^T$. We can use the $PA=LU$ decomposition and resulting formula to prove this true. First, note that we can show $\det P = \det P^T$ (a more full proof could use the property we just proved and that fact $P^T = P^{-1}$). Furthermore, note that the diagonal is preserved for the transpose of a square matrix. As a result, we can conclude that the determinants of the transpose of upper and lower triangular matrices are the same as the determinants of the original upper and lower triangular matrices themselves. Now, we can conclude:
+\begin{align*}
+	PA &= LU\\
+	(PA)^T &= (LU)^T\\
+	A^TP^T &= U^TL^T\\
+	\det A^T \det P^T &= \det U^T \det L^T\\
+	\det A^T &= \frac{\det U^T \det L^T}{\det P^T}\\
+	\det A^T &= \frac{\det U \det L}{\det P}\\
+	\det A^T &= \det A
+\end{align*} \vspace{-1mm}
+Thus, we have proven the determinant of an $n \times n$ matrix $A$ is equal to the determinant of $A^T$.
+\textbf{An Important Corollary on Determinants of Transposes}\\
+ An important corollary of this property is that any statement we make about the rows of a matrix and determinants has a corresponding statement about columns of a matrix and determinants. For instance, for matrix $A$ as by the axioms we know that row swaps change the sign of the $\det A$, it follows that column swaps must change the sign of $\det A^T$, and as $\det A = \det A^T$, we can conclude column swaps change the sign of $\det A$. Letting $A$ be an $n \times n$ matrix, other important properties that we can take from this is are:
+ \begin{itemize}
+ 	\item If $A$ has duplicate columns, then $\det A = 0$.
+ 	\item If $A$ has a zero column, then $\det A = 0$.
+ 	\item If we add a column times a scalar to a different column to produce $A'$, then $\det A = \det A'$.
+ 	\item As $\sfrac{1}{\det A^T} = \sfrac{1}{\det A}$, we can conclude $\det (A^T)^{-1} = \det A^{-1}$.
+ \end{itemize}\hfill
+ \\
+\textbf{Some Horrible Determinant Formulas}\\
+As opposed to doing $PA=LU$ factorization and finding the determinant from there, we can find some formulas for matrices of specific dimensions. While this is not a good way to calculate determinants in general, it serves as good practice. As a warm-up, we will do the easy cases:\\
+\begin{itemize}
+	\item The determinant of a $1 \times 1$ matrix will be just the element within the matrix.
+	\item The determinant of a $2 \times 2$ matrix will be:
+	\[\det \begin{pmatrix}a&b\\c&d\end{pmatrix} = 
+	  \det \begin{pmatrix}a&0\\c&d\end{pmatrix} + \det \begin{pmatrix}0&b\\c&d\end{pmatrix} = 
+	  \det \begin{pmatrix}a&0\\c&0\end{pmatrix} + \det \begin{pmatrix}a&0\\0&d\end{pmatrix} + 
+	  \det \begin{pmatrix}0&b\\c&0\end{pmatrix} + \det \begin{pmatrix}0&b\\0&d\end{pmatrix} = \]
+	  \[(ad)\det \begin{pmatrix}1&0\\0&1\end{pmatrix} + (bc)\det \begin{pmatrix}0&1\\1&0\end{pmatrix} =
+	  ad - bc\]
+	\item The determinant of a $3 \times 3$ matrix will be;
+	\begin{align*}
+		\det \begin{pmatrix}a&b&c\\d&e&f\\g&h&i\end{pmatrix} &=
+		\det \begin{pmatrix}a&0&0\\d&e&f\\g&h&i\end{pmatrix} + 
+		\det \begin{pmatrix}0&b&0\\d&e&f\\g&h&i\end{pmatrix} + 
+		\det \begin{pmatrix}0&0&c\\d&e&f\\g&h&i\end{pmatrix}\\
+		&= \text{$3^2$ total determinants with 1 non-zero in 1st and 2nd rows}\\
+		&= \text{$3^3$ total determinants with 1 non-zero in every row}\\
+		&= \text{$6$ total determinants of matrices that don't have zero columns}
+	\end{align*}
+	As all the matrices in the end have 1 non-zero in every row, we can factor out coefficients from each row to produce the sum of coefficients times the determinant of various $3 \times 3$ permutation matrices.
+\end{itemize}
+In the next lecture, we will use the process we used here, where we break everything down into determinants of permutation matrices times coefficients, to generalize a formula for the determinant of any matrix.
+
+
+
+
+\end{document}
