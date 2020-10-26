@@ -1,0 +1,70 @@
+\documentclass[12pt]{amsart}
+
+\addtolength{\hoffset}{-2.25cm}
+\addtolength{\textwidth}{4.5cm}
+\addtolength{\voffset}{-2.5cm}
+\addtolength{\textheight}{5cm}
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{15pt}
+
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xfrac}
+\usepackage[colorlinks = true, linkcolor = black, citecolor = black, final]{hyperref}
+
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{ marvosym }
+\usepackage{wasysym}
+\newcommand{\ds}{\displaystyle}
+
+
+\pagestyle{myheadings}
+
+\setlength{\parindent}{0in}
+
+\pagestyle{empty}
+
+\begin{document}
+
+\thispagestyle{empty}
+
+{\scshape 21-241} \hfill {\scshape \Large Notes} \hfill {\scshape Fall 2020}
+\medskip
+\hrule
+\bigskip
+
+\section*{Determinants: Cofactor and Permutation Formulas (10/26/2020)}
+So far, we have been able to derive quite a few formulas for the determinant of $n \times n$ matrices. In the $2 \times 2$ case, we simply used $ab-cd$, and in the $3 \times 3$ case we had an even more complicated formula (that's too long for me to reasonably write here)! Today, we will work to generalize this formula for any matrix using cofactor and permutation formulas.\\ \\
+\textbf{Thinking About the Process}\\
+ If we want to be able to find the determinant of a $3 \times 3$ matrix, note the simple formula:
+ \[\det A = a(ei-fh) - b(di-fg) + c(dh-eg)\]
+What's important about this formula? Well, it is actually just the sum of determinants of $2 \times 2$ matrices times elements of the first row of $A$ and possibly times negative one. It turns out this process can be generalized for all matrices. Note that in our last note document, we showed how to derive the different smaller matrices to take determinants of the determine the determinant of our larger matrix -- we would use the linearity of rows to break up the determinant of a single matrix to the sum of a lot of determinants of matrices with a lot of zeroes, particularly after factors have been pulled out, only permutation matrices. From these, we can use the formula for permutation matrix determinants to produce 1 or -1 for each determinant, and then factor from there to get our determinants. While this process works, it is not very well-defined for us. Thus, we will generalize it into two different nice (or debatably not-so-nice) formulas. \\ \\
+\textbf{Formulas for a Determinant}\\
+The first fomula is the permuation formula, also known as the "big fomula." This formula is simple:
+\[\det A = \sum (\det P)(\text{product of entries where $P$ is})\]
+This formula works, but it is really long and slow. The summation is $n!$ long, so our complexity of calculation is even above exponential! This formula is really the naive way of doing exactly what we were talking about in the last section.\\
+The easier, nicer, and generally better formula is that of the cofactor matrix. Before we get into things, we actually have to define the cofactor matrix. The cofactor matrix $C$ for a specific $a_{ij}$ in $A$ is really just:
+\[C_{ij} = (-1)^{i+j} \det (M_{ij})\]
+Most of this is self-explanatory, but we have not yet discussed what $M$ is. Matrix $M_{ij}$ is the minor of element $a_{ij}$ of a matrix $A$ -- it is the the matrix $A$ with row $i$ and column $j$ removed. Using the cofactor matrix, the formula for the determinant of the $n \times n$ matrix $A$is simply:
+\[\det A = a_{11}C_{11} + a_{22}C_{22} + \dots + a_{1n}C{1n}\]
+Note that the rows that we can use don't really matter -- all of the 1's indicating row above can be replaced with 2, 3, \dots, $n$ and we will get the exact same result! Now we have both of our formulas for the determinant of a matrix.\\ \\
+\textbf{Using the Cofactor Formula}\\
+While Gauss-Jordan or $PA=LU$ decomposition were processes, using cofactors we arrive at an actual formula. This is important, as it allows us to do a lot of cool things and come up with nice proofs and formulas. Perhaps one of the most important of these has to do with matrix inverses. We will prove the below formula for $n \times n$ matrix $A$:
+\[A^{-1} = \frac{1}{\det A}C^T\]
+Note that we still have this nice fraction with the determinant of $A$ in the denominator -- this means that if the determinant of $A$ is zero, our formula does not exist, and our matrix is thus noninvertible. To complete the proof of this formula, realize that it is sufficient to prove $A C^T = \det(A)I$. Multiplying our matrices, each row $m$ or our diagonal $A$ will be of form $a_{m1}C_{m1} + a_{m2}C_{m2} + \dots + a_{mn}C_{mn}$. It follows that $i$-th element is the row $i$ cofactor formula for our matrix $A$. Now, looking at our non-diagonal elements, we see that the off-diagonal matrices will be the determinant of a matrix with two equal rows. Thus, it follows that the value of each off-diagonal element will be zero. Specifically what matrix will each of these off-elements be a determinant of? They will be determinants of matrix $A$ with a single row replaces with another row. For instance, in row 1, from elements $a_{12}, a_{13}, \dots, a_{1n}$, each element is the determinant of row $A$ but row 1 replaces row $2, 3, \dots , n$. Now we have a pretty good proof for our inverse formula!\\ \\
+\textbf{Applications of Our Inverse Formula}\\
+Note that we can also use this new inverse formula to do a few cool things. Let's try to solve the linear equation $A\vec{x} = \vec{b}$. It follows that $A^{-1}A\vec{x}=A^{-1}\vec{b}$, which implies (using our formula) that:
+\[\vec{x} = \frac{1}{\det A}C^T \vec{b}\]
+Especially with smaller matrices, this can be pretty easy to solve out! Furthermore, note that this is an actual formula, not a process like our other ways of coming to solutions (elimination, using Gauss-Jordan to come to an inverse, etc.). Thus, in the future it may help with writing out proofs and other things of the like.\\
+Another application that is important but we won't really be using in this class is Cramer's Rule. This rule is derived by looking at the cofactor matrix for a long time and playing around with it. Here, it will suffice to just state it and save the proof for another class where the formula is more important. Given an $n \times n$ matrix $A$, if we aim to find a solution to $Ax=b$, then:
+\[x_i = \frac{\det B_i}{\det A}\]
+What is $\det B_i$? Well, it is quite similar to the minor matrix -- it is $A$ but with column $i$ replaced by vector $B$.
+
+
+
+
+
+
+\end{document}
