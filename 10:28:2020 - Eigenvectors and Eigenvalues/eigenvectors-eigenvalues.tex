@@ -1,0 +1,78 @@
+\documentclass[12pt]{amsart}
+
+\addtolength{\hoffset}{-2.25cm}
+\addtolength{\textwidth}{4.5cm}
+\addtolength{\voffset}{-2.5cm}
+\addtolength{\textheight}{5cm}
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{15pt}
+
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xfrac}
+\usepackage[colorlinks = true, linkcolor = black, citecolor = black, final]{hyperref}
+
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{ marvosym }
+\usepackage{wasysym}
+\newcommand{\ds}{\displaystyle}
+
+
+\pagestyle{myheadings}
+
+\setlength{\parindent}{0in}
+
+\pagestyle{empty}
+
+\begin{document}
+
+\thispagestyle{empty}
+
+{\scshape 21-241} \hfill {\scshape \Large Notes} \hfill {\scshape Fall 2020}
+\medskip
+\hrule
+\bigskip
+
+\section*{Eigenvectors and Eigenvalues (10/28/2020)}
+Just like determinants, eigenvectors and eigenvalues concern only square matrices. Today we will define them and start to figure out how to find them!\\
+\\
+\textbf{Definitions and Diagonals:}\\
+A non-zero vector $\vec{x}$ is an \underline{eigenvector} for an $n \times n$ matrix $A$ if and only if $A\vec{x}=\lambda\vec{x}$ for some scalar $\lambda$. The scalar $\lambda$ is the eigenvalue corresponding to $\vec{x}$.\\
+So, when we have a diagonal matrix, finding eigenvectors isn't too hard. Let's take the general $3 \times 3$ case:
+\[A = \begin{pmatrix}a&0&0\\0&b&0\\0&0&c\end{pmatrix}\]
+Here, $a$, $b$, and $c$ are distinct scalars. From this, it is easy to find eigenvector/eigenvalue pairs: (1, 0, 0) and $a$, (0, 1, 0) and $b$, and (0, 0, 1) and $c$. Furthermore, note that if $a=b=c$, then every vector is an eigenvector.\\
+\\
+\textbf{Computation of Eigenvectors/Eigenvalues:}\\
+Using some creative linear algebra, we can take our $A\vec{x}=\lambda\vec{x}$ equation and produce something much easier to work with when solving for $\lambda$ and $\vec{x}$, as shown below:
+\begin{align*}
+	A\vec{x} &= \lambda\vec{x}\\
+	A\vec{x} &= \lambda I \vec{x}\\
+	(A - \lambda I)\vec{x} &= \vec{0}
+\end{align*}
+We know now that $\vec{x}$ is in the nullspace of $A - \lambda I$. Thus, if $\vec{x}$ is nonzero, then $A - \lambda I$ must be noninvertible, and the determinant of $A - \lambda I$ must equal zero! So, if we solve for $\det (A - \lambda I)=0$, we will be able to get our solution easily!\\
+It turns out that when solving for this determinant, we will find a nice polynomial (or perhaps not-so-nice) that we will call the \underline{characteristic polynomial}. Note that a polynomial of degree $n$ will have no more than $n$ real roots, and exactly $n$ complex roots. Note that this count of $n$ roots requires us to count with multiplicity. If the polynomial has $(\lambda - 1)^2$ as a factor, that counts as two roots of 1, not only one. Now, let's do a practice problem!
+\begin{align*}
+	A = \begin{pmatrix}1&2\\4&3\end{pmatrix} \implies \det \begin{pmatrix}1-\lambda&2\\4&3-\lambda\end{pmatrix} = 0 \implies \lambda^2 - 4\lambda - 5 = 0 \implies (\lambda - 5)(\lambda + 1) = 0
+\end{align*}
+It follows that $\lambda \in \{5, -1\}$. Now, we simply need to find the eigenvectors. This is simply a computation to find elements of the nullspace. For $\lambda = 5$, we find:
+\[\begin{pmatrix}-4&2\\4&-2\end{pmatrix}\vec{x} = \vec{0} \implies \begin{pmatrix}1&\sfrac{-1}{2}\\0&0\end{pmatrix}\vec{x} = \vec{0} \implies \vec{x} = \begin{pmatrix}1 \\ \sfrac{-1}{2}\end{pmatrix}\]
+Note that this is a single solution for $\vec{x}$, and any scalar multiple times this vector would suffice (barring the scalar zero, as we want a non-zero vector). Doing this again for $\lambda = 3$, we can determine (-1, 1) is the proper eigenvector.\\
+So, in recap, to find eigenvectors and eigenvalues, we solve for $\det (A - \lambda I) = 0$, and then solve for the nullspace of $A - \lambda I$ substituting in each of our solutions to $\lambda$.\\
+\\
+\textbf{Algebraic and Geometric Multiplicity}\\
+Multiplicity is very important when thinking about and finding eigenvectors/eigenvalues. However, there are two types of multiplicity we will be thinking about -- algebraic and geometric. The first type is algebraic. Algebraic multiplicity is the normal multiplicity we deal with when talking about polynomials. Geometric multiplicity, on the other hand, is the number of linearly independent eigenvectors we are able to produce from a single matrix. For instance, the original diagonal matrix at the beginning of this document, with $a$, $b$, and $c$, both the geometric multiplicity and algebraic multiplicity are both $3$. Even if $a=b=c$, then the A.M. and G.M. are still equal. However, what if we consider the matrix below:
+\[A = \begin{pmatrix}1&2\\0&1\end{pmatrix}\]
+Solving for the eigenvalues, we get $\det(A - \lambda I) = (1 - \lambda)^2 = 0$. Thus, we have only one $\lambda$ to work with! Furthermore, as the nullspace is one-dimensional for this matrix $A$, we can only find a single eigenvector: (1, 0). Thus, while the algebraic multiplicity is 2, the geometric multiplicity is only 1. We will find that the geometric multiplicity is always less than or equal to the algebraic multiplicity.\\
+Note that the geometric multiplicity can be zero! There are cases in which no real eigenvalue exist. A good example of this is the rotation matrix (where we are not rotating by 0 or $\pi$). Basically, if $\det (A - \lambda I) \neq 0$ for all $\lambda$, then we can't find a $\lambda$ to make our eigen-calculations work! Note that this means the $A - \lambda I$ is invertible! Hypothetically, if we can find an inverse to $A - \lambda I$, then no eigenvectors/eigenvalues exist.\\
+In the next few lectures, we will discuss the implications of eigenvectors and eigenvalues (what if eigenvalues are imaginary?) and get better at both finding them and finding the number of eigenvectors/values without going through the whole calculation!
+
+
+
+
+
+
+
+
+\end{document}

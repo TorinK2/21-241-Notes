@@ -1,0 +1,57 @@
+\documentclass[12pt]{amsart}
+
+\addtolength{\hoffset}{-2.25cm}
+\addtolength{\textwidth}{4.5cm}
+\addtolength{\voffset}{-2.5cm}
+\addtolength{\textheight}{5cm}
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{15pt}
+
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xfrac}
+\usepackage[colorlinks = true, linkcolor = black, citecolor = black, final]{hyperref}
+
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{ marvosym }
+\usepackage{wasysym}
+\newcommand{\ds}{\displaystyle}
+
+
+\pagestyle{myheadings}
+
+\setlength{\parindent}{0in}
+
+\pagestyle{empty}
+
+\begin{document}
+
+\thispagestyle{empty}
+
+{\scshape 21-241} \hfill {\scshape \Large Notes} \hfill {\scshape F 2020}
+\medskip
+\hrule
+\bigskip
+
+\section*{Similar and Diagonalizable Matrices (10/30/2020)}
+\textbf{Similar Matrices:}\\
+Two $n \times n$ matrices $A$ and $C$ are similar if there is another $n \times n$ matrix $B$ such that $A=BCB^{-1}$. This property allows us to conclude that if two matrices $A$ and $C$ are similar, then they have the same eigenvalues (but not necessarily the same eigenvectors). Suppose $\vec{x}$ is an eigenvector with eigenvalue $\lambda$ for $C$, that is $C \vec{x} = \lambda \vec{x}$. It follows that $B\vec{x}$ is an eigenvector for $A$ with eigenvalue $\lambda$. This is because $A(B\vec{x}) = (BCB^{1})(B\vec{x})=BC\vec{x}=B(\lambda\vec{x})=\lambda(B\vec{x})$. Thus, the corresponding eigenvector is $B\vec{x}$.\\ \\
+\textbf{Diagonalizable Matrices:}\\
+An $n \times n$ matrix is diagonalizable if it is similar to a diagonal matrix. Not all matrices are diagonalizable, but most are. Note that if we have an $n \times n$ matrix $A$ with $n$ independent eigenvectors $\{\vec{x}_1, \vec{x}_2, \dots , \vec{x}_n\}$, with eigenvalues $\{\lambda_1, \lambda_2, \dots \lambda_n\}$, then $A$ is diagonalizable. We actually already know that if we take the eigenvalues and eigenvectors, we can produce $A$! Let $A = XCX^{-1}$, where the columns of $X$ are all of the eigenvectors, and $C$ is a diagonal matrix with the corresponding eigenvalues at each value on the diagonal. We know by def. of eigenvectors/eigenvalues:
+\begin{align*}
+	AX &= A (\vec{x}_1 \mid \vec{x}_2 \mid \dots \mid \vec{x}_n)\\
+	   &= (A\vec{x}_1 \mid A\vec{x}_2 \mid \dots \mid A\vec{x}_n)\\
+	   &= (\vec{x}_1\lambda_1 \mid \vec{x}_2\lambda_2 \mid \dots \mid \vec{x}_n\lambda_n)\\
+	   &= (\vec{x}_1 \mid \vec{x}_2 \mid \dots \mid \vec{x}_n)C\\
+	   &= XC
+\end{align*}
+Now that we know $AX = XC$, it is simple to conclude $A = XCX^{-1}$, as $XCX^{-1}=AXX^{-1}=A$. And we are done! Diagonalizable matrices are similar to the matrix with eigenvalues at each value on the diagonal.\\
+\\
+\textbf{Thinking About Diagonalization:}\\
+Our matrices $A$ and $C$ of the last section can be thought of as an \underline{change of basis}. As we multiply by the matrix $X$, we cause $X\vec{e}_1=\vec{x}_1$, $X\vec{e}_2=\vec{x}_2$, \dots $X\vec{e}_n=\vec{x}_n$, effectively mapping the standard basis vectors to the eigenvectors. We see that $X^{-1]$ will have the reverse effect, as $X^{-1}\vec{x}_1=\vec{e}_1$, $X^{-1}\vec{x}_2=\vec{e}_2$, \dots $X^{-1}\vec{x}_n=\vec{e}_n$. Thus, it follows that $A$ and $C$ are the same transformation with respect to different bases. As $X$ is effectively shifting the space of $\mathbb{R}^n$ to a different set of standard basis vectors, $C$ will produce the same linear transformation in this new space with these modified standard bases that $A$ will produce in normal space with normal standard bases. Similarly, $X$ and $X^{-1}$ provide the linear transformations by which we switch between these standard bases.\\
+\\
+\textbf{Clarifying the Notion of Diagonalization:}\\
+Consider multiplying our eigenvectors by the different vectors we have discussed. By multiplying by $A$, we scale each eigenvector by its corresponding eigenvalue. As we multiply by $X^{-1}$, we send the eigenvectors into the standard basis vectors. Now, if we multiply these standard basis vectors by $C$, it scales each standard basis vector by the eigenvalues. Finally, if we multiply these scaled standard basis vectors by $X$, we convert the standard basis vectors into the eigenvectors. Through this process, we see that multiplication by $A$ is the same as multiplication by $X^{-1}$, then $C$, than $X$, that is $XCX^{-1}$. It follows that by finding the diagonalization, we can think of multiplication by a matrix $A$ as a liner transformation of a diagonal matrix, something much easier to think about conceptually!
+\end{document}
