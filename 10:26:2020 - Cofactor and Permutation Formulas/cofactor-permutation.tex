@@ -46,7 +46,7 @@ The first fomula is the permuation formula, also known as the "big fomula." This
 \[\det A = \sum (\det P)(\text{product of entries where $P$ is})\]
 This formula works, but it is really long and slow. The summation is $n!$ long, so our complexity of calculation is even above exponential! This formula is really the naive way of doing exactly what we were talking about in the last section.\\
 The easier, nicer, and generally better formula is that of the cofactor matrix. Before we get into things, we actually have to define the cofactor matrix. The cofactor matrix $C$ for a specific $a_{ij}$ in $A$ is really just:
-\[C_{ij} = (-1)^{i+j} \det (M_{ij})\]
+\[C_{ij} = (-1)^{i+j}(M_{ij})\]
 Most of this is self-explanatory, but we have not yet discussed what $M$ is. Matrix $M_{ij}$ is the minor of element $a_{ij}$ of a matrix $A$ -- it is the the matrix $A$ with row $i$ and column $j$ removed. Using the cofactor matrix, the formula for the determinant of the $n \times n$ matrix $A$is simply:
 \[\det A = a_{11}C_{11} + a_{22}C_{22} + \dots + a_{1n}C{1n}\]
 Note that the rows that we can use don't really matter -- all of the 1's indicating row above can be replaced with 2, 3, \dots, $n$ and we will get the exact same result! Now we have both of our formulas for the determinant of a matrix.\\ \\
