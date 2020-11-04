@@ -1,0 +1,80 @@
+\documentclass[12pt]{amsart}
+
+\addtolength{\hoffset}{-2.25cm}
+\addtolength{\textwidth}{4.5cm}
+\addtolength{\voffset}{-2.5cm}
+\addtolength{\textheight}{5cm}
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{15pt}
+
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xfrac}
+\usepackage[colorlinks = true, linkcolor = black, citecolor = black, final]{hyperref}
+
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{ marvosym }
+\usepackage{wasysym}
+\newcommand{\ds}{\displaystyle}
+
+
+\pagestyle{myheadings}
+
+\setlength{\parindent}{0in}
+
+\pagestyle{empty}
+
+\begin{document}
+
+\thispagestyle{empty}
+
+{\scshape 21-241} \hfill {\scshape \Large Notes} \hfill {\scshape Fall 2020}
+\medskip
+\hrule
+\bigskip
+
+\section*{Properties of Markov Matrices (11/04/2020)}
+\textbf{Review/Applications of Markov Matrices:}\\
+In the last class, we introduced Markov matrices. These worked when the situation we want to model was a Markov chain -- this means that the next step is determined only by the very last step. Markov matrices have a lot of other really cool applications as well!
+\begin{itemize}
+	\item Population dynamics
+	\item Epidemiology
+	\item Random walks
+	\item Page rank (Google)
+	\item Games of skill and chance
+\end{itemize}
+All of these have been modeled using Markov matrices. However, Markov matrices are not the be-all, end-all. Other matrix equations will have to be used to describe things such as recurrence relations and economics.\\
+Properties of a Markov matrix were that they were square, entries were all non-negative, and the elements of each column summed to 1. Recall what a positive Markov matrix was-- the largest eigenvalue was $\lambda = 1$, the other eigenvalues $|\lambda_i| < 1$, so the matrix had an attracting steady state $\vec{x}$ given by the eigenvector of eigenvalue $\lambda=1$.\\
+\\
+\textbf{Proving Properties of Markov Matrices:}\\
+First, we must prove something about general square matrices. We aim to prove if $A$ is an $n \times n$ matrix, then $A$ and $A^T$ have the same eigenvalues. This can be done by taking $n \times n$ matrix $A$, and showing $\det(A - \lambda I) = \det(A^T - \lambda I)$. Then the characteristic polynomials for both matrices must be the same, and thus they must have the same eigenvalues! We see:
+\begin{align*}
+	\det(A - \lambda I) &= \det(A - \lambda I)^T\\
+						&= \det(A^T - (\lambda I)^T)\\
+						&= \det(A^T - \lambda I)
+\end{align*}
+Thus, our proof is complete! Using this lemma, we can show that every Markov matrix has an eigenvalue of 1. Remember that given the all-ones vector $\vec{1}$, for any Markov matrix $M$, we found $M\vec{1} = \vec{1}$. Thus, $\vec{1}$ is the eigenvector for $M^T$ with eigenvalue $\lambda = 1$. As a result, $M^T$ has eigenvalue $1$, and by our lemma $M$ must have eigenvalue $1$ as well! Thus, every Markov matrix has eigenvalue $1$.\\
+Now, let's prove that if $M$ is a Markov matrix and $\vec{x}$ is a vector, then the sum of the components of $M\vec{x}$ is the same as the sum of the components of $\vec{x}$. We see that:
+\begin{align*}
+	\text{sum components }M\vec{x} &= \vec{x}_1M_{*1} + \vec{x}_2M_{*2} + \dots + \vec{x}_nM_{*n}\\
+			 &= \vec{x}_1(M_{11} + \dots M_{n1}) + \dots + \vec{x}_n(M_{1n} + \dots M_{nn})\\
+			 &= \vec{x}_1 + \dots + \vec{x}_n 
+\end{align*}
+ Another things that we want to prove is that if $A$ and $B$ are $n \times n$ Markov matrices, then $AB$ is a Markov matrix. As the elements of $A$ and $B$ are non-negative, the elements of $AB$ are also non-negative. Now, we see that:
+ \begin{align*}
+ 	(AB)_{ij} 	&= A_{i*}B_{*j}\\
+ 				&= (A(B_{*1})|\dots|A(B_{*n}))
+ \end{align*}
+As the component sum of $B_{*j}$ adds up to 1, by our previous proven property as $A$ is a Markov matrix the sum of the components of $A(B_{*j})$ sums to 1. Thus, each column of $AB$ sums to 1 and no element is negative, making $AB$ a Markov matrix!\\
+The next thing to prove is that if $\lambda$ is the eigenvector of a Markov matrix, then $|\lambda|\leq1$. To prove this, let's first take $\vec{x}$ as a unit eigenvector of Markov matrix $M$. Unit eigenvector means the length of the vector is 1 -- the sum of each component squared equals 1. By definition of Markov matrix, we know for infinitely large $k$, $0 \leq (M^k)_{ij} \leq 1$. So, the absolute value of the $i$-th entry of vector $M^k\vec{x}$  will equal to the absolute value of row $i$ of $M^k$ times $\vec{x}$. As a result, the largest possible value for the absolute value of the $i$-th value is less than or equal to the size of $M$, $n$. Also, we know that for corresponding eigenvalue $\lambda$, $M^k\vec{x} = \lambda^k\vec{x}$. Thus, unless $\lambda$ is less than or equal $1$, then $\lambda^k\vec{x}$ will be $>n$, causing a contradiction. Therefore, we can conclude that $|\lambda| \leq 1$ for all eigenvalues $\lambda$.\\
+\\
+\textbf{Spectral Theorem}\\
+Recall that a matrix $S$ is symmetric if and only if $S = S^T$, or $S_{ij} = S_{ji}$. The spectral theorem will show us that symmetric matrices will have very nice diagonalizations. Recall that diagonalizable matrix $A$ can be written as $A = X \Lambda X^{-1}$.\\
+As discussed in previous lecture, diagonalization is a change of basis. Thus, when taking transformations we have the choice between taking an ugly transformation with a nice basis (standard basis), or taking a nice transformation with an ugly basis (eigen bases). Sometimes, we don't even have a choice -- a matrix is not always diagonalizable!\\
+What spectral theorem will prove is that given symmetric matrix $S$, we can find orthonormal matrix $Q$ such that $S = Q \Lambda Q^{-1}$. Furthermore, our diagonal matrix $\Lambda$ will have all real numbers; there will be no complex eigenvalues! As $Q$ is orthogonal, we know that our eigenvectors have an orthogonal representation, Thus, the new basis is a "nice" orthogonal one, just like our standard basis! Changing basis in this way will preserve lengths and angles, as we won't be rescaling things, just repositioning them. We will prove this in the next lecture!
+
+
+
+\end{document}
