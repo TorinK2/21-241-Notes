@@ -1,0 +1,82 @@
+\documentclass[12pt]{amsart}
+
+\addtolength{\hoffset}{-2.25cm}
+\addtolength{\textwidth}{4.5cm}
+\addtolength{\voffset}{-2.5cm}
+\addtolength{\textheight}{5cm}
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{15pt}
+
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xfrac}
+\usepackage[colorlinks = true, linkcolor = black, citecolor = black, final]{hyperref}
+
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{ marvosym }
+\usepackage{wasysym}
+\newcommand{\ds}{\displaystyle}
+
+
+\pagestyle{myheadings}
+
+\setlength{\parindent}{0in}
+
+\pagestyle{empty}
+
+\begin{document}
+
+\thispagestyle{empty}
+
+{\scshape 21-241} \hfill {\scshape \Large Notes} \hfill {\scshape Fall 2020}
+\medskip
+\hrule
+\bigskip
+
+\section*{Spectral Theorem (11/06/2020)}
+\textbf{Statement of Theorem:}\\
+The statement of spectral theorem is actually quite simple. Given a symmetric $n \times n$ matrix $S$, the matrix is not only diagonalizable, but diagonalizable in the form $S=Q\Lambda Q^-1$, where the columns of $Q$ are orthonormal. This is equivalent to saying the eigenvectors of $S$ are orthonormal and $S$ diagonalizable.\\
+\\
+\textbf{A Complex Review:}\\
+We have to go over a few different concepts before we have the tools prove spectral theorem. First, let us go over exactly what complex numbers are. There are members of the set:
+\[\mathbb{C} = \{a + bi \mid a, b \in \mathbb{R}, i^2 = 1\}\]
+Note that these complex numbers are closed under addition and multiplication. Furthermore, there is an important additional operation we can take on the imaginary numbers. The complex conjugate of $a + bi$ is $\overline{a + bi} = a-bi$. Note that a few properties of the conjugate are true. Given complex numbers $x$ and $y$ and real number $a$, we see that:
+\begin{itemize}
+	\item $\overline{x} + \overline{y} = \overline{x + y}$
+	\item $\overline{xy} = \overline{x}\cdot\overline{y}$, which implies $(\overline{x})^n = \overline{x^n}$
+	\item $\overline{a} = a$
+\end{itemize}
+If we have a polynomial $p$ with real coefficients, and a root of $p$ is complex number $x$, it follows that $\overline{x}$ is a root of the polynomial as well. This means that complex roots come in conjugate pairs. Finally, the magnitude of a complex number is $|x| = \sqrt{x\overline{x}}$. This is equivalent to the length of the vector $(a, b)$ where $x = a + bi$.\\
+\\
+\textbf{Towards a Proof:}\\
+Let's prove that if we have a real, symmetric matrix, then it has only real eigenvalues. Let $S$ be real and symmetric, with eigenvector $\vec{x}$, eigenvalue $\lambda$. We can define $\vec{x}$ and $\overline{\vec{x}}$, which takes the complex conjugate of each and every element of $\vec{x}$. We will see that:
+\begin{align*}
+	S\vec{x} = \lambda \vec{x} &\implies \overline{\vec{x}}^TS\lambda = \overline{\vec{x}}^T\lambda \vec{x}\\
+	S\vec{x} = \lambda \vec{x} \implies \overline{S\vec{x}} = \overline{\lambda \vec{x}} &\implies 
+	S\cdot\overline{\vec{x}} = \overline{\lambda }\cdot\overline{\vec{x}} \implies 
+	\overline{\vec{x}}^TS = \overline{\lambda }\cdot\overline{\vec{x}}^T\\
+	\overline{\vec{x}}^TS = \overline{\lambda }\cdot\overline{\vec{x}}^T \implies 
+	\overline{\vec{x}}^TS\vec{x} = \overline{\lambda }\cdot\overline{\vec{x}}^T\vec{x} &\implies \lambda \cdot\overline{\vec{x}}^T\vec{x} = \overline{\lambda} \cdot\overline{\vec{x}}^T \vec{x} \implies \lambda = \overline{\lambda}
+\end{align*}
+As we have shown that $\lambda = \overline{\lambda}$, it follows that $\lambda$ must be real!\\
+\\
+\textbf{Final Proof:}\\
+We want to show that a real, symmetric matrix $S$ has orthogonal eigenvectors. Let $S$ be real and symmetric with eigenvectors $\vec{x}_1$ and $\vec{x}_2$. It follows that $S\vec{x}_1 = \lambda_1\vec{x}_1$, $S\vec{x}_2 = \lambda_2\vec{x}_2$, and $\lambda_1 \neq \lambda_2$. We want to show that $\vec{x}_1 \perp \vec{x}_2$. As $S$ is symmetric, we can conclude that $S - \lambda I$ is symmetric for $\lambda \in \{\lambda_1, \lambda_2\}$. Furthermore, as $S - \lambda_1 I$ symmetric, row space orthogonal to nullspace we know:
+\[C(S - \lambda_1 I) = C(S - \lambda_1 I)^T \quad  \perp \quad N(S - \lambda_1 I)\] 
+Since $\vec{x}_1$ is an eigenvector for $S$,  it follows that $\vec{x}_1 \in N(S - \lambda_1 I)$. Also, we see that:
+\[(S - \lambda_1 I)\vec{x}_2 = S\vec{x}_2 - \lambda_1\vec{x}_2 = (\lambda_2 - \lambda_1)\vec{x}_2\]
+As $\lambda_1 \neq \lambda_2$, we know that $\lambda_2 - \lambda_1 \neq 0$. From the equation above, we can conclude $\vec{x}_2 \in C(S - \lambda_1 I)$, and by the same process $\vec{x}_1 \in C(S - \lambda_2 I)$. As we showed above that the column space is orthogonal to the nullspace, we can conclude that $\vec{x}_1 \perp \vec{x}_2$.
+\\ \\
+\textbf{Some Matrix Definitions:}\\
+We say that an $n \times n$ symmetric matrix $S$ is positive definite if:
+\begin{itemize}
+	\item All $n$ pivots are positive.
+	\item All upper left determinants are positive.
+	\item All $n$ eigenvalues are positive.
+	\item For all $\vec{x}\neq\vec{0}$, $\overline{\vec{x}}^T S \vec{x} > \vec{0}$
+	\item There is an $m \times n$ matrix $A$ with independent columns such that $S = A^TA$.
+\end{itemize}
+A matrix is positive semi-definite if it meets all the requirements above, except $A$ does not necessarily have independent columns.
+\end{document}
