@@ -1,0 +1,55 @@
+\documentclass[12pt]{amsart}
+
+\addtolength{\hoffset}{-2.25cm}
+\addtolength{\textwidth}{4.5cm}
+\addtolength{\voffset}{-2.5cm}
+\addtolength{\textheight}{5cm}
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{15pt}
+
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xfrac}
+\usepackage[colorlinks = true, linkcolor = black, citecolor = black, final]{hyperref}
+
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{ marvosym }
+\usepackage{wasysym}
+\newcommand{\ds}{\displaystyle}
+
+
+\pagestyle{myheadings}
+
+\setlength{\parindent}{0in}
+
+\pagestyle{empty}
+
+\begin{document}
+
+\thispagestyle{empty}
+
+{\scshape 21-241} \hfill {\scshape \Large Notes} \hfill {\scshape Fall 2020}
+\medskip
+\hrule
+\bigskip
+
+\section*{Singular Value Decomposition (11/09/2020)}
+\textbf{Positive Definite and Positive Semi-definite Matrices:}\\
+There are a few important properties to keep in mind when discussing positive definite and positive semi-definite matrices. Let's consider an $m \times n$ matrix $A$. In all cases, we can conclude that $A^TA$ equals a symmetric matrix $S$. Furthermore, if $A$ has independent columns (is invertible), then $S$ will be positive definite. If $A$ has dependent columns (is non-invertible), then $S$ will be a positive semi-definite matrix.
+\\ \\
+\textbf{Introducing Singular Value Decomposition:}\\
+Let's consider an $m \times n$ matrix $A$. We could like to diagonalize it! However, this is a problem -- we have no idea how to diagonalize things that are not square. We can achieve this using something called singular value decomposition, or SVD. We will discuss two types of SVD. Firstly, we will discuss rank $r$ format, where $A = U_r \Sigma_r V^T_r$, and secondly we will discuss full format, where $A = U \Sigma V^T$. We see $U_r$ is $m \times r$, $\Sigma_r$ is $r \times r$, and $V^T_r$ is $r \times n$, and $U$ is $m \times m$, $\Sigma$ is $m \times n$, and $V^T_r$ is $n \times n$. Furthermore, $U_r$ and $V_r$ will have orthonormal columns and $U$, $V$ will be orthogonal matrices, where $\Sigma_r$ will a diagonal matrix and $\Sigma$ will have only non-zero elements on the diagonal. \underline{Every} matrix will have a singular value decomposition, regardless of size, etc.\\
+\\
+\textbf{SVD on Four Fundamental Subspaces:}\\
+We can think about SVD in terms of the four fundamental subspaces. Remember for $m \times n$ matrix of rank $r$, the row space is dimension $r$, the nullspace is dimension $n - r$, the column space is dimension $r$, and the left nullspace is dimension $m - r$. Thinking about SVD, the columns of $V_r$ will form an orthonormal basis for the row space. Similarly, the columns of $U_r$ will form an orthonormal basis for the column space. These columns of $V_r$ and $U_r$ is what we will call singular vectors. We want for $0 \leq i \leq r$, $A\vec{v}_i = \sigma_i \vec{u}_i$. Putting this equation together for all the columns, we reach the equation $AV_r = U_r\Sigma_r$, where the singular values $\sigma$ make up the diagonal of $\Sigma_r$.\\ 
+Now we have been able to reach SVD in rank $r$ format. How do we get to full format? Well, we will add in $n-r$ additional vectors to the columns of $V$, where these vectors are a basis for the nullspace of $A$. Next, we will add in $m-r$ additional vectors to the columns of $U$, where these vectors are a basis for the left nullspace of $A$. Now we have an $n \times n$ matrix $V$, and an $m \times m$ matrix $U$. However, what do we do to the extra values of $\sigma$? If we think about the equation $A\vec{v}_i = \sigma_i \vec{u}_i$, we know that as $\vec{v}_i$ in the nullspace of $A$, that $A\vec{v}_i = \vec{0}$. Thus, all the additional $\sigma$ are just equal to zero so $\sigma_i \vec{u}_i = \vec{0}$. As a result, we will be able to define $\Sigma$ as an $m \times n$ matrix, and thus conclude that $AV = U\Sigma$.\\
+As we select the columns of $V$ and the columns of $U$, we must first make sure that they are orthogonal. 
+Thus, we can take our equations $AV_r = U_r\Sigma_r$ and $AV = U\Sigma$ to reach $A = U_r\Sigma_r V_r^T$ and $A = U\Sigma V^T$. Thus, we have our complete SVD equations!\\
+\\
+\textbf{Looking Forward:}\\
+It's nice to think about these ideas and see how SVD would work on a higher, conceptual level. Still, we don't actually know "how" to implement SVD. As a result, we will now move forward with figuring out the computational methods to produce SVD decomposition!
+
+
+\end{document}
