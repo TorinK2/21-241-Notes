@@ -1,0 +1,64 @@
+\documentclass[12pt]{amsart}
+
+\addtolength{\hoffset}{-2.25cm}
+\addtolength{\textwidth}{4.5cm}
+\addtolength{\voffset}{-2.5cm}
+\addtolength{\textheight}{5cm}
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{15pt}
+
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xfrac}
+\usepackage[colorlinks = true, linkcolor = black, citecolor = black, final]{hyperref}
+
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{ marvosym }
+\usepackage{wasysym}
+\newcommand{\ds}{\displaystyle}
+
+
+\pagestyle{myheadings}
+
+\setlength{\parindent}{0in}
+
+\pagestyle{empty}
+
+\begin{document}
+
+\thispagestyle{empty}
+
+{\scshape 21-241} \hfill {\scshape \Large Notes} \hfill {\scshape Fall 2020}
+\medskip
+\hrule
+\bigskip
+
+\section*{Singular Value Decomposition Continued(11/11/2020)}
+\textbf{Review:}\\
+Remember that we discussed singular value decomposition (SVD) in class yesterday. This process allows us to take any $m \times n$ matrix $A$ with rank $r$, and show $A=U_r\Sigma_rV^T_r$, where $U_r$ and $V_r$ are orthogonal and $\Sigma_r$ is diagonal, and $A=U\Sigma V^T$, where $U$ and $V$ are orthogonal and all elements on the diagonal of $\Sigma$ are non-zero. Furthermore, the columns of $U$ are a basis for the column space and the left nullspace, and the columns of $V$ are a basis for the row space and the nullspace, while the columns of $U_r$ are a basis for the column space while the columns of $V_r$ are a basis for the row space.\\
+\\
+\textbf{Finding SVD:}\\
+So, this is a really nice idea! But how do we get it to actually work! Well, let's start with our $m \times n$ matrix $A$. Now, given matrices $U$, $\Sigma$, and $V$, let:
+\begin{itemize}
+	\item $\vec{v}_i$'s are the eigenvectors or $n \times n$ matrix $A^TA$.
+	\item $\vec{u}_i$'s are the eigenvectors or $m \times m$ matrix $AA^T$.
+	\item $\sigma$'s in the diagonal or $\Sigma$ are the square root of the eigenvalues of $A^TA$/$AA^T$.
+\end{itemize}
+Why does this work? Well, suppose we have $A = U\Sigma V^T$. It would follow that:
+\begin{align*}
+	&&A = U\Sigma V^T \hspace{5mm}&\land\hspace{5mm}A^T = V\Sigma^TU^T\\
+	\implies&& A^TA = V\Sigma^T\Sigma V^T\hspace{5mm}&\land\hspace{5mm}AA^T = U\Sigma^T\Sigma U^T\\
+	\implies&& A^TA = V\Sigma^2 V^T\hspace{5mm}&\land\hspace{5mm}AA^T = U\Sigma^2 U^T\hspace{5mm}
+\end{align*}
+By the spectral theorem, the eigenvalues of $A^TA$ are the values of $\Sigma^2$ and the eigenvectors of $A^TA$ are the columns of $V$, and the eigenvalues of $AA^T$ are the values of $\Sigma^2$ and the eigenvectors of $AA^T$ are the columns of $U$. So, this system of $\vec{v}_i$, $\vec{u}_i$, and $\sigma$ works!\\
+One last property we need to prove before continuing is that $N(A) = N(A^TA)$. This is a simple set equality proof that doesn't need to be included here.\\
+\\
+\textbf{Proving A Method For SVD:}\\
+So, if we have matrix $A^TA$, it must be positive semi-definite, so by spectral theorem, $A^TA = Q \Lambda Q^T$, where $Q$ is orthonormal and the first $1$ through $r$ (rank) values on the diagonal of $\Lambda$ are the eigenvalues of $A^TA$, while the rest are zero. So, let $\vec{v}_i = Q_{*i}$, that is let $V = Q$. This will give us all the properties we want! It follows that the last $r+1$ through $n$ columns must be a members of $N(A^TA)$, and thus members of $N(A)$, while the first $1$ through $r$ columns of $V$ must be orthogonal to $N(A^TA)$, and thus orthogonal to $N(A)$ and thus a basis of the row space. If we simply let $\sigma$ be equal to $\sqrt{\lambda}$ for each item on the diagonal of $\Lambda$, it must follow that $A\vec{v}_i = \sigma_i \vec{u}_i$, and thus $\vec{u}_i = \frac{A\vec{v}_i}{\sigma_i}$ for $1 \leq i \leq r$. Now, we can prove that $\vec{u}_i, \dots, \vec{u}_r$ are orthonormal by simply showing $\vec{u}_i\vec{u}_j = 0$ if $i \neq j$, and $\vec{u}_i\vec{u}_j = 1$ if $i = j$. However, this will only get us $U_r$ -- it will not give us $U$! We still need $\vec{u}_i$ for $r+1 \leq i \leq m$. Thus, if we want to find all the columns of $U$, the only way we have is to use the same spectral decomposition of $AA^T$. It would be useful to go through a few numerical examples to better understand exactly what is going on!\\
+By diagonalization of a square matrix, we were able to see the "change of basis" brought on my our original matrix $A$. With singular value decomposition, we can as well!
+
+
+
+\end{document}
