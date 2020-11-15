@@ -68,6 +68,8 @@ So, given vectors $\vec{x}_1, \dots \vec{x}_m \in \mathbb{R}^n$, we aim to find 
 Note that this concept of the error squared and the length of the projections is taken from least squares approximation. Furthermore, note that is these conditions above are equivalent! This can be derived from the equation (think Pythagorean Theorem):
 \[\sum_{i=1}^m ||\vec{x}_i||^2 = \sum_{i=1}^m \left(||\vec{p}_i||^2+||\vec{e}_i||^2\right)
 \]
+We basically want to find an orthonormal set $\{\vec{v}_1, \dots \vec{v}_k\}$ such that for $1 \leq i \leq n$ we find:
+\[\vec{x}_i \approx \vec{p}_i = \mathrm{proj}_{\vec{v}_1}\vec{x}_i + \dots \mathrm{proj}_{\vec{v}_k}\vec{x}_i = (\vec{x}_i^T\vec{v}_1)\vec{v}_1 + \dots (\vec{x}_i^T\vec{v}_k)\vec{v}_k\]
 \\
 
 \textbf{A Set of Quick Propositions:}\\
@@ -83,9 +85,10 @@ From our last equation, we know that this value above is maximized when $\vec{y}
 So, we are done! Note these propositions are really just quantifications of a lot of properties inherent in SVD.\\
 \\
 \textbf{Wrapping it All Up}\\
-So now, we have the tools to get the best-fit subspace! We simply want to maximize:
+So now, we have the tools to get the best-fit subspace! Let's consider solely the case in which $k = 1$. Then, for a single $\vec{v}$ we simply want to maximize:
 \[\sum_{i=1}^m\mathrm{proj}_{\vec{v}}{\vec{x_i}} = \sum_{i=1}^m ||(\vec{x_i}^T\vec{v})\vec{v}||^2 = 
 \sum_{i=1}^m (\vec{x_i}^T\vec{v})^2\]
-We see that if we form a matrix $A$ the rows of which are $\vec{x_1}^T \dots \vec{x_m}^T$, then it follows that the above is equivalent to $||A\vec{v}||$. Thus, it follows quite simply that we can make $A = U \Sigma V^T$, and then let $\vec{v} = \vec{v}_1$, the first column of ${V}$. Thus, we are finished, and our subspace is maximized!
+We see that if we form a matrix $A$ the rows of which are $\vec{x_1}^T \dots \vec{x_m}^T$, then it follows that the above is equivalent to $||A\vec{v}||$. Thus, it follows quite simply that we can make $A = U \Sigma V^T$, and then let $\vec{v} = \vec{v}_1$, the first column of ${V}$. The one-dimensional subspace of best fit is simply spanned by $\vec{v}_1$. Thus, we are finished, and our subspace is maximized!\\
+In the next lecture,  we will move on to getting the best-fit subspace for higher dimensional subspaces!
 
 \end{document}
