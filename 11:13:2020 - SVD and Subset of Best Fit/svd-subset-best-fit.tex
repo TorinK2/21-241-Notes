@@ -88,7 +88,6 @@ So, we are done! Note these propositions are really just quantifications of a lo
 So now, we have the tools to get the best-fit subspace! Let's consider solely the case in which $k = 1$. Then, for a single $\vec{v}$ we simply want to maximize:
 \[\sum_{i=1}^m\mathrm{proj}_{\vec{v}}{\vec{x_i}} = \sum_{i=1}^m ||(\vec{x_i}^T\vec{v})\vec{v}||^2 = 
 \sum_{i=1}^m (\vec{x_i}^T\vec{v})^2\]
-We see that if we form a matrix $A$ the rows of which are $\vec{x_1}^T \dots \vec{x_m}^T$, then it follows that the above is equivalent to $||A\vec{v}||$. Thus, it follows quite simply that we can make $A = U \Sigma V^T$, and then let $\vec{v} = \vec{v}_1$, the first column of ${V}$. The one-dimensional subspace of best fit is simply spanned by $\vec{v}_1$. Thus, we are finished, and our subspace is maximized!\\
-In the next lecture,  we will move on to getting the best-fit subspace for higher dimensional subspaces!
+We see that if we form a matrix $A$ the rows of which are $\vec{x_1}^T \dots \vec{x_m}^T$, then it follows that the above is equivalent to $||A\vec{v}||$. Thus, it follows quite simply that we can make $A = U \Sigma V^T$, and then let $\vec{v} = \vec{v}_1$, the first column of ${V}$. The one-dimensional subspace of best fit is simply spanned by $\vec{v}_1$. Thus, we are finished, and our subspace is maximized! If we would like to approximate higher-dimensional subspaces, we simply continue to take columns of $V$! The $k$-dimensional subspace of best fit will be $\{\vec{v}_1, \dots \vec{v}_k\}$.
 
 \end{document}
